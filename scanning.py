@@ -1,6 +1,6 @@
 
 files = ['a_example', 'b_read_on', 'c_incunabula', 'd_tough_choices', 'e_so_many_books', 'f_libraries_of_the_world']
-bests = [21, 5822900, 5467966, 4109300, 3105648, 2313163]
+bests = [21, 5822900, 5467966, 4815395, 3496307, 2703359]
 # bests = [0,0,0,0,0,0]
 
 
@@ -54,7 +54,6 @@ def read_libraries(filename):
 
     i = 0
     libraries = sorted(libraries, key=lambda library: library["count"], reverse=True)
-    libraries = sorted(libraries, key=lambda library: library["per_day"], reverse=True)
     libraries = sorted(libraries, key=lambda library: library["signup_days"])
     for library in libraries:
         #print("{} days to signup libraries".format(number_of_days))
