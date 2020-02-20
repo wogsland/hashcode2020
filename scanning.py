@@ -1,4 +1,3 @@
-from operator import itemgetter
 
 files = ['a_example', 'b_read_on', 'c_incunabula', 'd_tough_choices', 'e_so_many_books', 'f_libraries_of_the_world']
 bests = [21, 5822900, 5467966, 4109300, 3105648, 2313163]
@@ -54,8 +53,8 @@ def read_libraries(filename):
     books_already_scanned = [0] * len(book_scores)
 
     i = 0
-    libraries = sorted(libraries, key=itemgetter library: library["signup_days"])
-    # libraries = sorted(libraries, key=lambda library: library["signup_days"])
+    libraries = sorted(libraries, key=lambda library: library["count"], reverse=True)
+    libraries = sorted(libraries, key=lambda library: library["signup_days"])
     for library in libraries:
         #print("{} days to signup libraries".format(number_of_days))
         number_of_days = number_of_days - library["signup_days"]
