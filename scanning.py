@@ -1,6 +1,6 @@
 
 files = ['a_example', 'b_read_on', 'c_incunabula', 'd_tough_choices', 'e_so_many_books', 'f_libraries_of_the_world']
-bests = [21, 5822900, 5467966, 4841980, 3364794, 2703359]
+bests = [21, 5822900, 5467966, 4871555, 3383006, 2703359]
 # bests = [0,0,0,0,0,0]
 
 
@@ -60,7 +60,7 @@ def read_libraries(filename):
         if number_of_days >= 0:
             #print("scanning books for library {}".format(i))
             new_score, new_books = scan_books(library["per_day"], library["books"], number_of_days, book_scores, books_already_scanned)
-            if new_score > 0:
+            if new_score > 1000:
                 score = score + new_score
                 libraries_signed_up = libraries_signed_up + 1
                 library_order.append({
