@@ -1,6 +1,6 @@
 print('in scanning')
 
-files = ['a_example']
+files = ['a_example', 'b_read_on', 'c_incunabula', 'd_tough_choices', 'e_so_many_books', 'f_libraries_of_the_world']
 
 
 def read_libraries(filename):
@@ -85,3 +85,8 @@ def scan_books(books_per_day, books, days_left, book_scores):
 
 
 read_libraries(files[0])
+read_libraries(files[1])
+# read_libraries(files[2])
+# read_libraries(files[3])
+# read_libraries(files[4])
+# read_libraries(files[5])
