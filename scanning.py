@@ -1,6 +1,6 @@
-
+import math
 files = ['a_example', 'b_read_on', 'c_incunabula', 'd_tough_choices', 'e_so_many_books', 'f_libraries_of_the_world']
-bests = [21, 5822900, 5467966, 4871555, 3383006, 5212833]
+bests = [21, 5822900, 5467966, 4871555, 3383088, 5212833]
 # bests = [0,0,0,0,0,0]
 
 
@@ -123,7 +123,7 @@ def library_weight(books, book_scores, signup_days, library_per_day):
     if signup_days == 0:
         return 999999999999999999
     else:
-        return library_per_day*weight/signup_days
+        return (weight/signup_days)*math.sqrt(library_per_day)
 
 
 read_libraries(files[0])
