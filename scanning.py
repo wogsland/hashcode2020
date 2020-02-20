@@ -1,6 +1,6 @@
 
 files = ['a_example', 'b_read_on', 'c_incunabula', 'd_tough_choices', 'e_so_many_books', 'f_libraries_of_the_world']
-bests = [20, 4126100, 828126, 7177170, 467865, 906706]
+bests = [17, 4126100, 828126, 7177170, 467865, 906706]
 
 
 def read_libraries(filename):
@@ -62,15 +62,21 @@ def read_libraries(filename):
                 "books": new_books
             })
         i = i + 1
-
-    # write output file
-    f = open(filename + ".out", "w")
-    f.write("{}\n".format(libraries_signed_up))
-    for library in library_order:
-        f.write("{} {}\n".format(library["id"], len(library["books"])))
-        #print()
-        f.write(" ".join(library["books"]) + "\n")
     print("score {} for {}".format(score, filename))
+
+    best = 0
+    for i, name in enumerate(files):
+        if name == filename:
+            best = bests[i]
+    if score > best:
+        # write output file
+        f = open(filename + ".out", "w")
+        f.write("{}\n".format(libraries_signed_up))
+        for library in library_order:
+            f.write("{} {}\n".format(library["id"], len(library["books"])))
+            #print()
+            f.write(" ".join(library["books"]) + "\n")
+
 
 
 def scan_books(books_per_day, books, days_left, book_scores, books_already_scanned):
@@ -80,11 +86,11 @@ def scan_books(books_per_day, books, days_left, book_scores, books_already_scann
     for day in range(0, days_left):
         for book in range(0, books_per_day):
             #print("comparing {} < {}".format(book_index, len(books)))
-            if book_index < len(books) and 0 == books_already_scanned[books[book_index]]:
+            if book_index < len(books) and 0 == books_already_scanned[int(books[book_index])]:
                 #print("day {}, book number {}".format(day, book_index))
                 books_scanned.append(str(books[book_index]))
-                score = score + int(book_scores[books[book_index]])
-                books_already_scanned[books[book_index]] = 1
+                score = score + int(book_scores[int(books[book_index])])
+                books_already_scanned[int(books[book_index])] = 1
                 book_index = book_index + 1
         if book_index == len(books):
             break
@@ -92,8 +98,8 @@ def scan_books(books_per_day, books, days_left, book_scores, books_already_scann
 
 
 read_libraries(files[0])
-read_libraries(files[1])
-read_libraries(files[2])
-read_libraries(files[3])
-read_libraries(files[4])
-read_libraries(files[5])
+#read_libraries(files[1])
+#read_libraries(files[2])
+#read_libraries(files[3])
+#read_libraries(files[4])
+#read_libraries(files[5])
