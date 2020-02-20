@@ -54,6 +54,7 @@ def read_libraries(filename):
 
     i = 0
     libraries = sorted(libraries, key=lambda library: library["count"], reverse=True)
+    libraries = sorted(libraries, key=lambda library: library["per_day"], reverse=True)
     libraries = sorted(libraries, key=lambda library: library["signup_days"])
     for library in libraries:
         #print("{} days to signup libraries".format(number_of_days))
