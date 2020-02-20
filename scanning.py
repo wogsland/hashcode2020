@@ -1,6 +1,6 @@
 
 files = ['a_example', 'b_read_on', 'c_incunabula', 'd_tough_choices', 'e_so_many_books', 'f_libraries_of_the_world']
-bests = [21, 5822900, 5467966, 4815395, 3496307, 2703359]
+bests = [21, 5822900, 5467966, 4841980, 3496307, 2703359]
 # bests = [0,0,0,0,0,0]
 
 
