@@ -49,6 +49,7 @@ def read_libraries(filename):
     books_already_scanned = [0] * len(book_scores)
 
     i = 0
+    libraries = sorted(libraries, key=lambda library: library["signup_days"])
     for library in libraries:
         #print("{} days to signup libraries".format(number_of_days))
         number_of_days = number_of_days - library["signup_days"]
@@ -100,9 +101,9 @@ def scan_books(books_per_day, books, days_left, book_scores, books_already_scann
     return score, books_scanned
 
 
-#read_libraries(files[0])
-#read_libraries(files[1])
-#read_libraries(files[2])
+read_libraries(files[0])
+read_libraries(files[1])
+read_libraries(files[2])
 read_libraries(files[3])
-#read_libraries(files[4])
-#read_libraries(files[5])
+read_libraries(files[4])
+read_libraries(files[5])
