@@ -1,6 +1,6 @@
 
 files = ['a_example', 'b_read_on', 'c_incunabula', 'd_tough_choices', 'e_so_many_books', 'f_libraries_of_the_world']
-bests = [21, 5822900, 5467966, 4871555, 3383006, 2703359]
+bests = [21, 5822900, 5467966, 4871555, 3383006, 5212833]
 # bests = [0,0,0,0,0,0]
 
 
@@ -34,7 +34,7 @@ def read_libraries(filename):
             library_days = int(pieces[1])
             library_per_day = int(pieces[2])
         else:
-            weight = library_weight(pieces, book_scores, library_days)
+            weight = library_weight(pieces, book_scores, library_days, library_per_day)
             library = {
                 "id": library_count,
                 "count": library_books,
@@ -116,14 +116,14 @@ def sort_libraries(libraries):
     return libraries
 
 
-def library_weight(books, book_scores, signup_days):
+def library_weight(books, book_scores, signup_days, library_per_day):
     weight = 0
     for book in books:
         weight = weight + int(book_scores[int(book)])
     if signup_days == 0:
         return 999999999999999999
     else:
-        return weight/signup_days
+        return library_per_day*weight/signup_days
 
 
 read_libraries(files[0])
