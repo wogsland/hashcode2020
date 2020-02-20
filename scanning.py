@@ -1,6 +1,8 @@
+from operator import itemgetter
 
 files = ['a_example', 'b_read_on', 'c_incunabula', 'd_tough_choices', 'e_so_many_books', 'f_libraries_of_the_world']
-bests = [17, 4126100, 870640, 4109300, 479277, 916843]
+bests = [21, 5822900, 5467966, 4109300, 3105648, 2313163]
+# bests = [0,0,0,0,0,0]
 
 
 def read_libraries(filename):
@@ -14,6 +16,7 @@ def read_libraries(filename):
     library_books = 0
     library_days = 0
     library_per_day = 0
+    library_count = 0
     for line in open(filename + '.txt', 'r'):
         # print(line)
         trunk = line.split('\n')
@@ -33,12 +36,14 @@ def read_libraries(filename):
             library_per_day = int(pieces[2])
         else:
             library = {
+                "id": library_count,
                 "count": library_books,
                 "signup_days": library_days,
                 "per_day": library_per_day,
                 "books": pieces,
             }
             libraries.append(library)
+            library_count = library_count + 1
         count = count + 1
 
     score = 0
@@ -49,7 +54,8 @@ def read_libraries(filename):
     books_already_scanned = [0] * len(book_scores)
 
     i = 0
-    libraries = sorted(libraries, key=lambda library: library["signup_days"])
+    libraries = sorted(libraries, key=itemgetter library: library["signup_days"])
+    # libraries = sorted(libraries, key=lambda library: library["signup_days"])
     for library in libraries:
         #print("{} days to signup libraries".format(number_of_days))
         number_of_days = number_of_days - library["signup_days"]
@@ -59,7 +65,7 @@ def read_libraries(filename):
             new_score, new_books = scan_books(library["per_day"], library["books"], number_of_days, book_scores, books_already_scanned)
             score = score + new_score
             library_order.append({
-                "id": i,
+                "id": library["id"],
                 "books": new_books
             })
         i = i + 1
