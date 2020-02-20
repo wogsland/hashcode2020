@@ -34,12 +34,14 @@ def read_libraries(filename):
             library_days = int(pieces[1])
             library_per_day = int(pieces[2])
         else:
+            weight = library_weight(pieces, book_scores, library_days)
             library = {
                 "id": library_count,
                 "count": library_books,
                 "signup_days": library_days,
                 "per_day": library_per_day,
                 "books": pieces,
+                "weight": weight,
             }
             libraries.append(library)
             library_count = library_count + 1
@@ -52,21 +54,21 @@ def read_libraries(filename):
     books_at_library = 0
     books_already_scanned = [0] * len(book_scores)
 
-    libraries = sorted(libraries, key=lambda library: library["count"], reverse=True)
-    libraries = sorted(libraries, key=lambda library: library["signup_days"])
+    libraries = sort_libraries(libraries)
     for library in libraries:
         #print("{} days to signup libraries".format(number_of_days))
         number_of_days = number_of_days - library["signup_days"]
         if number_of_days >= 0:
             #print("scanning books for library {}".format(i))
-            new_score, new_books = scan_books(library["per_day"], library["books"], number_of_days, book_scores, books_already_scanned)
-            if new_score > 1000:
+            new_score, new_books, new_books_already_scanned = scan_books(library["per_day"], library["books"], number_of_days, book_scores, books_already_scanned)
+            if new_score > 0:
                 score = score + new_score
                 libraries_signed_up = libraries_signed_up + 1
                 library_order.append({
                     "id": library["id"],
                     "books": new_books
                 })
+                books_already_scanned = new_books_already_scanned
             else:
                 number_of_days = number_of_days + library["signup_days"]
 
@@ -104,11 +106,25 @@ def scan_books(books_per_day, books, days_left, book_scores, books_already_scann
                 book_index = book_index + 1
         if book_index == len(books):
             break
-    return score, books_scanned
+    return score, books_scanned, books_already_scanned
 
 
 def sort_libraries(libraries):
     print("sorting libraries")
+    libraries = sorted(libraries, key=lambda library: library["weight"], reverse=True)
+    #libraries = sorted(libraries, key=lambda library: library["signup_days"])
+    return libraries
+
+
+def library_weight(books, book_scores, signup_days):
+    weight = 0
+    for book in books:
+        weight = weight + int(book_scores[int(book)])
+    if signup_days == 0:
+        return 999999999999999999
+    else:
+        return weight/signup_days
+
 
 read_libraries(files[0])
 read_libraries(files[1])
